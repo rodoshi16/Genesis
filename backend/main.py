@@ -1,39 +1,26 @@
 from typing import Union
+from model3 import generate
 
-from fastapi import FastAPI
-from model_service import generate
-
-import json
-
+from fastapi import FastAPI, File, UploadFile
 app = FastAPI()
 
 
-@app.get("/")
-#creating an get endpoint at the root
-#the frontend can access
-#if i want to get a list of questions
+#@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
-def read_root(): #call the notebook in the genai
-    #return the json answers 
-    #create separate functions
-    #load file
-    #create prompt
-    #return json
+@app.post("/upload/")
+async def upload_file(file: UploadFile = File(...)):
+    # Save the uploaded file to a specific location
+    with open(f"uploaded_files/{file.filename}", "wb") as buffer:
+        buffer.write(await file.read())
     
-    #create dict
-    dict_new = {"safety": "important", "next": "also"}
-    response = generate()
-    for question in json.dump(response).questions:
-        print(question)
-    return {}
-    
-    
-    
-    
-    #return {"Hello": "World"}
-
-
-
+    # prompt = f"Based on the following text, generate 10 multiple choice questions\n{contents}"
+    responses = generate(buffer.read())
+    for response in responses:
+        print(response.text, end="")
+        
+    return {"filename": file.filename}
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
