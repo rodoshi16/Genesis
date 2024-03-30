@@ -8,11 +8,11 @@ def generate(file_contents):
   model = GenerativeModel("gemini-1.0-pro-vision-001")
   text1 = """generate 10 multiple questions in json format following this schema [{\"question: String, \"options\": String[], \"answer\": String}]"""
   document1 = Part.from_data(mime_type="application/pdf",
-    data=base64.b64decode(file_contents))
+    data=file_contents)
   responses = model.generate_content(
       [text1, document1],
-      generation_config=generation_config,
-      safety_settings=safety_settings,
+      #generation_config=generation_config,
+      #safety_settings=safety_settings,
       stream=True,
   )
 
