@@ -1,6 +1,9 @@
 from typing import Union
 
 from fastapi import FastAPI
+from model_service import generate
+
+import json
 
 app = FastAPI()
 
@@ -19,7 +22,10 @@ def read_root(): #call the notebook in the genai
     
     #create dict
     dict_new = {"safety": "important", "next": "also"}
-    return dict_new
+    response = generate()
+    for question in json.dump(response).questions:
+        print(question)
+    return {}
     
     
     
