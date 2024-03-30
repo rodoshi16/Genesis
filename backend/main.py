@@ -1,6 +1,6 @@
 from typing import Union
 from model3 import generate
-
+import os
 from fastapi import FastAPI, File, UploadFile
 app = FastAPI()
 
@@ -9,6 +9,18 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
+@app.get('/questions/{category}')
+def get_questions(category):
+    #create a dict   
+    dict_file = {"first_aid": "first aid.pdf", "electrical_hazards": "electrical hazards.pdf",
+                 "fire_emergency": "fire emergency.pdf", "general_lab_safety": "General lab safety.pdf",
+                 "report_incident": "report incident.pdf"}
+    file_find = dict_file[category] #find the file using key
+    
+    
+    
+
+#how to receive query parameters with fast api
 @app.post("/upload/")
 async def upload_file(file: UploadFile = File(...)):
     # Save the uploaded file to a specific location
