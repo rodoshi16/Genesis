@@ -4,6 +4,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs';
+
 
 @Component({
   selector: 'app-questions',
@@ -21,14 +24,24 @@ export class QuestionsComponent {
 
   isLoading: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.isLoading = true;
-    this.http.get('http://localhost:8000/questions/first_aid').subscribe(data => {
+    this.route.params.pipe(
+
+      switchMap(params => {
+        this.isLoading = true;
+        // Extract the ID from the route parameters
+        const id = params['category'];
+        // Call the API with the ID
+        return this.http.get(`http://localhost:8000/questions/${id}`);
+      })
+    ).subscribe(data => {
       this.questions = data
       this.isLoading = false;
-    })
+    }, error => {
+      console.error('Error fetching data:', error);
+    });
   }
 
   answer(option: String): void {

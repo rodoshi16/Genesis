@@ -1,9 +1,9 @@
 @if (categories.length != 0) {
-    <div class="questions-container">
+    <div class="categories-container">
         @for( category of categories; track category){
             <button
             class="btn-option"
-           [routerLink]="['/questions']"
+            [routerLink]="['/questions', category]"
           >
             <span class="btn-text">{{ category }}</span>
           </button>
