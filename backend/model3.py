@@ -5,7 +5,7 @@ import vertexai.preview.generative_models as generative_models
 
 
 def generate(file_contents):
-  vertexai.init(project="test1-418901", location="us-central1")
+  vertexai.init(project="virtual-core-418819", location="us-central1")
   model = GenerativeModel("gemini-1.0-pro-vision-001")
   text1 = """generate 10 multiple questions in json format following this schema [{"question: String, "options": String[], "answer": String}]"""
   document1 = Part.from_data(mime_type="application/pdf",
@@ -19,8 +19,11 @@ def generate(file_contents):
 
   return responses
 
+import os
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="key.json"
+
 def additional(wrong_questions):
-  vertexai.init(project="test1-418901", location="us-central1")
+  vertexai.init(project="virtual-core-418819", location="us-central1")
   model = GenerativeModel("gemini-1.0-pro-vision-001")
   text1 = """The user got the {wrong_questions} wrong, generate one paragaph of the topic on each question for the student engineer or employee 
           to learn more about this safety topic, return in json format following this schema [{"para": String}]"""

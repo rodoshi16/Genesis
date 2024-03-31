@@ -33,3 +33,4 @@ var/
 *.bak
 *.swp
 *~
+key.json
