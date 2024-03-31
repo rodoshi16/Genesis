@@ -66,6 +66,15 @@ export class QuestionsComponent {
           })
         }
       }
+
+      // Call the feedback endpoint with incorrect answers
+      this.http.post('http://localhost:8000/feedback', { incorrect: this.incorrectAnswers })
+        .subscribe((response: any) => {
+          console.log('Feedback received:', response);
+          // Process feedback response here if needed
+        }, (error) => {
+          console.error('Error sending feedback:', error);
+        });
     }
   }
 }

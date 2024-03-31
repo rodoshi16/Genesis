@@ -40,8 +40,11 @@ async def feedback(body: Item):
         for response in additional_info:
             response_texts.append(response.text)
         print(response_texts)
-        response_info.append(response_texts)
-    return json.loads(''.join(additional_info))    
+        response_info.extend(response_texts)  # Use extend to avoid nested lists
+    
+    return json.dumps({"responses": response_info})
+    #     response_info.append(response_texts)
+    # return json.loads(''.join(additional_info))    
 
 @app.get('/questions/{category}')
 def get_questions(category):
