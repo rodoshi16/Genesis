@@ -1,0 +1,21 @@
+@if (questions[currentQuestion]) {
+<div class="questions-container">
+  <mat-progress-bar
+    mode="determinate"
+    [value]="(currentQuestion / questions.length) * 100"
+    color="accent"
+    class="bar"
+  ></mat-progress-bar>
+  <span class="question">{{ questions[currentQuestion].question }}</span>
+  @for(option of questions[currentQuestion].options; track option){
+  <button
+    mat-flat-button
+    color="accent"
+    class="btn-option"
+    (click)="answer(option)"
+  >
+    <span class="btn-text">{{ option }}</span>
+  </button>
+  }
+</div>
+}

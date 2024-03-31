@@ -1,0 +1,29 @@
+.questions-container {
+    display: flex;
+    max-width: 400px;
+    margin: auto;
+    flex-direction: column;
+    padding: 12px;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.question {
+    font-size: 18px;
+    text-align: center;
+}
+
+.bar {
+    width: 300px;
+}
+
+.btn-option {
+    width: 90%;
+}
+
+.btn-text {
+    color: black;
+    text-wrap: true;
+    padding: 20px;
+}
