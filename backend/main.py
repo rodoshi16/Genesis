@@ -4,6 +4,7 @@ import os
 import json
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 app = FastAPI()
 
 # Add middleware for CORS
@@ -24,11 +25,13 @@ def read_root():
 def get_categories():
     return ["first_aid", "personal", "workplace", "chemical", "report_incident"]
 
+class Item(BaseModel):
+    incorrect: list
+
 @app.post('/feedback')
-def feedback(body):
-    wrong_questions = body
-    for question in wrong_questions:
-        print(question.selected_answer)
+async def feedback(body: Item):
+    for question in body.incorrect:
+        print(question['selected_answer'])
 
 @app.get('/questions/{category}')
 def get_questions(category):
@@ -77,10 +80,6 @@ def get_questions(category):
 #         print(response.text, end="")
         
 #     return {"filename": file.filename}
-
-@app.post("/upload/")
-def 
-
 
 
 @app.get("/items/{item_id}")
