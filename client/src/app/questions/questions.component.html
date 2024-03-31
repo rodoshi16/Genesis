@@ -19,7 +19,16 @@
 } 
 @else if (currentQuestion == questions.length && questions.length != 0){
   <div class="questions-container">
-    <h1>Congratulations!!!</h1>
+    <!-- write if 0<questions.length - incorrectanswers.length <5, print train harder
+    if 5<= questions.length - incorrectanswers.length<8, print almost there, 
+  if 8<=questions.length - incorrectanswers.length <=10, print congratulations  -->
+      @if(questions.length - incorrectAnswers.length < 5){
+        <h1>Safety!</h1>
+      }@else if(questions.length - incorrectAnswers.length < 8){
+        <h1>Almost there!</h1>
+      }@else{
+        <h1>Congratulations!!!</h1>
+      } 
   <h1>{{questions.length - incorrectAnswers.length}} / {{questions.length}}</h1>
   </div>
   

@@ -24,6 +24,12 @@ def read_root():
 def get_categories():
     return ["first_aid", "personal", "workplace", "chemical", "report_incident"]
 
+@app.post('/feedback')
+def feedback(body):
+    wrong_questions = body
+    for question in wrong_questions:
+        print(question.selected_answer)
+
 @app.get('/questions/{category}')
 def get_questions(category):
     #create a dict   
@@ -71,6 +77,11 @@ def get_questions(category):
 #         print(response.text, end="")
         
 #     return {"filename": file.filename}
+
+@app.post("/upload/")
+def 
+
+
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
