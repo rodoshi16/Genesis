@@ -10,6 +10,10 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
+@app.get('/categories')
+def get_categories():
+    return ["first_aid", "personal", "workplace", "chemical", "report_incident"]
+
 @app.get('/questions/{category}')
 def get_questions(category):
     #create a dict   
