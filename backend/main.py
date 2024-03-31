@@ -13,8 +13,8 @@ def read_root():
 @app.get('/questions/{category}')
 def get_questions(category):
     #create a dict   
-    dict_file = {"first_aid": "first aid.pdf", "electrical_hazards": "electrical hazards.pdf",
-                 "fire_emergency": "fire emergency.pdf", "general_lab_safety": "General lab safety.pdf",
+    dict_file = {"first_aid": "first aid.pdf", "personal": "personal protection.pdf",
+                 "workplace": "workplace.pdf", "chemical": "chemical.pdf",
                  "report_incident": "report incident.pdf"}
     filename = dict_file.get(category) #find the file using key
     # Read the file contents
