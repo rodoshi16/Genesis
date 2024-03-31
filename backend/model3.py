@@ -19,3 +19,13 @@ def generate(file_contents):
 
   return responses
 
+def additional(wrong_questions):
+  vertexai.init(project="test1-418901", location="us-central1")
+  model = GenerativeModel("gemini-1.0-pro-vision-001")
+  text1 = """The user got the ""wrong_questions wrong" wrong, generate one paragaph of the topic on each question for the student engineer or employee 
+          to learn more about this safety topic, return in json format"""
+  responses = model.generate_content(
+    [text1],
+    stream=True,
+  )
+  return responses
