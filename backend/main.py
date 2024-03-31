@@ -35,9 +35,13 @@ async def feedback(body: Item):
     for question in wrong_questions:
         #print(question.selected_answer)
         additional_info = additional(question)
-        print(additional_info)
-        response_info.append(additional_info)
-    return response_info    
+
+        response_texts = []
+        for response in additional_info:
+            response_texts.append(response.text)
+        print(response_texts)
+        response_info.append(response_texts)
+    return json.loads(''.join(additional_info))    
 
 @app.get('/questions/{category}')
 def get_questions(category):
