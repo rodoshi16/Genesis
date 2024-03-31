@@ -32,17 +32,16 @@ class Item(BaseModel):
 async def feedback(body: Item):
     wrong_questions = body.incorrect
     response_info = []
-    for question in wrong_questions:
-        #print(question.selected_answer)
-        additional_info = additional(question)
+    additional_info = additional(wrong_questions)
 
-        response_texts = []
-        for response in additional_info:
-            response_texts.append(response.text)
-        print(response_texts)
-        response_info.extend(response_texts)  # Use extend to avoid nested lists
+    response_texts = []
+    for response in additional_info:
+         response_texts.append(response.text)
+                               #.replace('\n', '').replace('\\', '').replace('para', '').strip())
+    print(response_texts)
+    #response_info.extend(response_texts)  # Use extend to avoid nested lists
     
-    return json.dumps({"responses": response_info})
+    return json.dumps({"responses": response_texts})
     #     response_info.append(response_texts)
     # return json.loads(''.join(additional_info))    
 

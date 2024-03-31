@@ -71,8 +71,12 @@ export class QuestionsComponent {
       this.http.post('http://localhost:8000/feedback', { incorrect: this.incorrectAnswers })
         .subscribe({
           next: (data) => {
-            this.isLoading = false;;
-            this.feedback = data;
+            this.isLoading = false;
+
+            const json = JSON.parse(data as string);
+            console.log(json);
+            //@ts-ignore
+            this.feedback = json.responses;
           }
         });
     }

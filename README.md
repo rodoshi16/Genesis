@@ -62,7 +62,7 @@ Alternatively, if you prefer not to use Docker, you can run each service individ
 3. Start each service individually. For example:
     - For the frontend service:
         ```bash
-        cd frontend
+        cd client
         npm install -g @angular/cli
         npm install
         npm run start
