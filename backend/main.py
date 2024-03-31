@@ -3,7 +3,17 @@ from model3 import generate
 import os
 import json
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
+
+# Add middleware for CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Set this to your frontend URL or '*' for any origin
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],  # Add the HTTP methods you want to allow
+    allow_headers=["*"],  # Set this to the headers you want to allow or '*' for any header
+)
 
 
 #@app.get("/")
