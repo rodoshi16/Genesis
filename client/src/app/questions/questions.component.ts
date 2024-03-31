@@ -26,6 +26,8 @@ export class QuestionsComponent {
 
   incorrectAnswers: any = []
 
+  feedback: any = ""
+
   constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -60,20 +62,18 @@ export class QuestionsComponent {
 
       for (let i = 0; i < correct_answers.length; i++) {
         if (correct_answers[i] !== this.answers[i]) {
-          this.incorrectAnswers.push({
-            question: this.questions[i],
-            selected_answer: this.answers[i]
-          })
+          this.incorrectAnswers.push(this.questions[i].question)
         }
       }
 
       // Call the feedback endpoint with incorrect answers
+      this.isLoading = true;
       this.http.post('http://localhost:8000/feedback', { incorrect: this.incorrectAnswers })
-        .subscribe((response: any) => {
-          console.log('Feedback received:', response);
-          // Process feedback response here if needed
-        }, (error) => {
-          console.error('Error sending feedback:', error);
+        .subscribe({
+          next: (data) => {
+            this.isLoading = false;;
+            this.feedback = data;
+          }
         });
     }
   }
