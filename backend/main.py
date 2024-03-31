@@ -30,19 +30,15 @@ class Item(BaseModel):
 
 @app.post('/feedback')
 async def feedback(body: Item):
-    for question in body.incorrect:
-        print(question['selected_answer'])
-        
-        
-@app.post('/feedback')
-def feedback(body): #body is a dictionary
     wrong_questions = body.incorrect
     response_info = []
     for question in wrong_questions:
         #print(question.selected_answer)
         additional_info = additional(question)
         response_info.append(additional_info.text)
-    return json.loads(''.join(response_info))
+    return json.loads(''.join(response_info))    
+        
+    
 
 
 @app.get('/questions/{category}')
