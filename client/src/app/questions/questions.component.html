@@ -20,7 +20,7 @@
 @else if (currentQuestion == questions.length && questions.length != 0){
   <div class="questions-container">
     <h1>Congratulations!!!</h1>
-  <h1>{{correctQuestions}} / {{questions.length}}</h1>
+  <h1>{{questions.length - incorrectAnswers.length}} / {{questions.length}}</h1>
   </div>
   
 }

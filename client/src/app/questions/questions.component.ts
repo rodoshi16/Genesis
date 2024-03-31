@@ -24,7 +24,7 @@ export class QuestionsComponent {
 
   isLoading: boolean = false;
 
-  correctQuestions = 0
+  incorrectAnswers: any = []
 
   constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute) { }
 
@@ -59,8 +59,11 @@ export class QuestionsComponent {
       // count the correct answers
 
       for (let i = 0; i < correct_answers.length; i++) {
-        if (correct_answers[i] === this.answers[i]) {
-          this.correctQuestions++;
+        if (correct_answers[i] !== this.answers[i]) {
+          this.incorrectAnswers.push({
+            question: this.questions[i],
+            selected_answer: this.answers[i]
+          })
         }
       }
     }
