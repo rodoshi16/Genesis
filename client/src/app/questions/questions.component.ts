@@ -2,63 +2,34 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClient } from '@angular/common/http';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-questions',
   standalone: true,
-  imports: [MatProgressBarModule, MatButtonModule],
+  imports: [MatProgressBarModule, MatButtonModule, SpinnerComponent],
   templateUrl: './questions.component.html',
   styleUrl: './questions.component.scss'
 })
 export class QuestionsComponent {
-  questions = [
-    {
-      question: "What is the course code for this syllabus?",
-      options: [
-        "APS 101",
-        "APS 102",
-        "APS 103",
-        "APS 104"
-      ],
-      answer: "APS 101"
-    },
-    {
-      question: "Who is the course coordinator?",
-      options: [
-        "Salma Emar",
-        "Jonathan Eyolfson",
-        "Bruno Korst",
-        "None of the above"
-      ],
-      answer: "Salma Emar"
-    },
-    {
-      question: "What is the course website?",
-      options: [
-        "https://www.eecg.utoronto.ca/~salma/",
-        "https://eyolfson.com/",
-        "https://www.ece.utoronto.ca/people/korst-b/",
-        "None of the above"
-      ],
-      answer: "https://www.eecg.utoronto.ca/~salma/"
-    },
-    {
-      question: "What is the course email?",
-      options: [
-        "salma@ece.utoronto.ca",
-        "j.eyolfson@utoronto.ca",
-        "bkf@ece.utoronto.ca",
-        "None of the above"
-      ],
-      answer: "salma@ece.utoronto.ca"
-    }
-  ];
+  questions: any = [];
 
   answers: String[] = []
 
   currentQuestion = 0;
 
-  constructor(private router: Router) { }
+  isLoading: boolean = false;
+
+  constructor(private router: Router, private http: HttpClient) { }
+
+  ngOnInit() {
+    this.isLoading = true;
+    this.http.get('http://localhost:8000/questions/first_aid').subscribe(data => {
+      this.questions = data
+      this.isLoading = false;
+    })
+  }
 
   answer(option: String): void {
     // Move to the next object in the list

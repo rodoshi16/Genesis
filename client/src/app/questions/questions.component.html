@@ -1,4 +1,4 @@
-@if (questions[currentQuestion]) {
+@if (questions[currentQuestion] != null) {
 <div class="questions-container">
   <mat-progress-bar
     mode="determinate"
@@ -9,8 +9,6 @@
   <span class="question">{{ questions[currentQuestion].question }}</span>
   @for(option of questions[currentQuestion].options; track option){
   <button
-    mat-flat-button
-    color="accent"
     class="btn-option"
     (click)="answer(option)"
   >
@@ -18,4 +16,8 @@
   </button>
   }
 </div>
+}
+
+@if (isLoading) {
+  <app-spinner/>
 }
