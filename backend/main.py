@@ -1,5 +1,5 @@
 from typing import Union
-from model3 import generate
+from model3 import generate, additional
 import os
 import json
 from fastapi import FastAPI, File, UploadFile
