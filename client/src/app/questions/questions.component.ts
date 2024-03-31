@@ -24,6 +24,8 @@ export class QuestionsComponent {
 
   isLoading: boolean = false;
 
+  correctQuestions = 0
+
   constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -52,7 +54,15 @@ export class QuestionsComponent {
 
     if (this.currentQuestion == this.questions.length) {
       console.log(this.answers);
-      this.router.navigate(['/result']);
+      // create an array with the correct questions
+      const correct_answers = this.questions.map((question: any) => question.answer)
+      // count the correct answers
+
+      for (let i = 0; i < correct_answers.length; i++) {
+        if (correct_answers[i] === this.answers[i]) {
+          this.correctQuestions++;
+        }
+      }
     }
   }
 }
